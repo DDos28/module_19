@@ -1,0 +1,17 @@
+>>> from task1.models import Buyer, Game
+>>> Buyer.objects.create(name='buyer1', balance=52, age=25) 
+>>> Buyer.objects.create(name='buyer2', balance=850, age=36) 
+>>> Buyer.objects.create(name='buyer3', balance=0, age=16)   
+>>> Game.objects.create(title='Resident Evil 4', cost=20.00, size=10.00, description='Хоррор', age_limited=True)     
+>>> Game.objects.create(title='WOW', cost=15.00, size=8.00, description='Стратегия', age_limited=True)           
+>>> Game.objects.create(title='Mario', cost=15.00, size=8.00, description='Головоломка', age_limited=False)
+>>> game1=Game.objects.get(id=1) 
+>>> game2=Game.objects.get(id=2) 
+>>> game3=Game.objects.get(id=3) 
+>>> b1=Buyer.objects.get(id=1)   
+>>> b2=Buyer.objects.get(id=2) 
+>>> b3=Buyer.objects.get(id=3) 
+>>> game1.buyer.set([b1, b2])                                      
+>>> game2.buyer.set([b1])        
+>>> game3.buyer.set([b1, b2, b3]) 
+           
