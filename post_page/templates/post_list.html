@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список постов</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Список постов</h1>
+
+        <form method="get">
+            <label for="per_page">Элементов на странице:</label>
+            <select id="per_page" name="per_page">
+                <option value="5" {% if per_page == 5 %}selected{% endif %}>5</option>
+                <option value="10" {% if per_page == 10 %}selected{% endif %}>10</option>
+                <option value="20" {% if per_page == 20 %}selected{% endif %}>20</option>
+            </select>
+            <button type="submit">Применить</button>
+        </form>
+
+        {% for post in page_obj %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text">{{ post.content }}</p>
+                    <p class="card-text"><small class="text-muted">{{ post.created_at }}</small></p>
+                </div>
+            </div>
+        {% endfor %}
+
+        <nav aria-label="Pagination">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&per_page={{per_page}}">Предыдущая</a></li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    <li class="page-item {% if page_obj.number == num %}active{% endif %}"><a class="page-link" href="?page={{ num }}&per_page={{per_page}}">{{ num }}</a></li>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&per_page={{per_page}}">Следующая</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
