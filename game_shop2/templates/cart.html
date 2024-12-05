@@ -1,0 +1,12 @@
+{% extends 'menu.html' %}
+
+{% block pagename %}Корзина{% endblock %}
+
+{% block content %}
+    <h1>Извините, ваша корзина пуста.</h1>
+    <ul>
+        {% for game in games %}
+            <li>{{ game }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
