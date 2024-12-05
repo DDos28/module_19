@@ -8,7 +8,7 @@ def index(request):
     return render(request, 'index.html', context)
 
 def game_list(request):
-    games = Game.objects.all()  # Получаем все игры из базы данных
+    games = Game.objects.all()
     context = {'games': games}
     return render(request, 'game_list.html', context)
 
@@ -24,13 +24,13 @@ def register(request):
             cleaned_data = form.cleaned_data
             name = cleaned_data['username']
             age = cleaned_data['age']
-            # ... (Обработка пароля —  не забудьте его хэшировать!) ...
+
 
             try:
                 Buyer.objects.get(name=name)
                 return render(request, 'registration_form.html', {'form':form, 'error_message': 'Покупатель с таким именем уже существует'})
             except Buyer.DoesNotExist:
-                Buyer.objects.create(name=name, balance=0, age=age) # Баланс устанавливаем в 0 по умолчанию.
+                Buyer.objects.create(name=name, balance=0, age=age)
                 return redirect('registration_success')
         else:
             return render(request, 'registration_form.html', {'form': form})
